@@ -35,7 +35,7 @@ public class DvdView {
 
     public DVD getNewDVDInfo() {
         String title = io.readString("Please enter DVD title").toUpperCase();
-        String Director = io.readString("Please enter Name director name.");
+        String Director = io.readString("Please enter the director's name.");
         String studio = io.readString("Please enter studio name");
         String releaseDate = io.readString("Please enter release Date");
         String genre = io.readString("Please enter genre");
@@ -43,7 +43,7 @@ public class DvdView {
         String mpaaRating = io.readString("Please enter mpaa Rating");
         String userRating = io.readString("Please enter user rating and comments.");
 
-        DVD currentDVD = new DVD();
+        DVD currentDVD = new DVD(title);
         currentDVD.setTitle(title.toUpperCase());
         currentDVD.setDirector(Director);
         currentDVD.setStuido(studio);
@@ -92,14 +92,16 @@ public class DvdView {
 
     public void displaySearchDVD(DVD dvd) {
         if (dvd != null) {
-            io.print(dvd.getTitle());
-            io.print(dvd.getDirector());
-            io.print(dvd.getStuido());
-            io.print(dvd.getReleaseDate());
-            io.print(dvd.getGenre());
-            io.print(dvd.getStarring());
-            io.print(dvd.getMpaaRating());
-            io.print(dvd.getUserRating());
+           io.print("Title:");
+                io.print(dvd.getTitle());
+                io.print("Release Date:");
+                io.print(dvd.getReleaseDate());
+                io.print("Rating:");
+                io.print(dvd.getMpaaRating());
+                io.print("Director:");
+                io.print(dvd.getDirector());
+                io.print("User Rating:");
+                io.print(dvd.getUserRating());
 
         } else {
             io.print("No such DVD.");
@@ -135,10 +137,6 @@ public class DvdView {
         io.print("===DVD Search===");
     }
 
-    public void displayviewEndDVD() {
-        io.print("===End DVD Search===");
-    }
-
     public void displayDvdListEndBanner() {
         io.print("===End DVD List===");
     }
@@ -146,19 +144,22 @@ public class DvdView {
     public void displaySearchEndDVD() {
         io.print("===End DVD Search===");
     }
-     public void displaynoDVDfound() {
+
+    public void displaynoDVDfound() {
         io.print("===No DVD Found==");
     }
 
     public void displaySearchesDVD(DVD dvd) {
         if (dvd != null) {
+            io.print("Title:");
             io.print(dvd.getTitle());
-            io.print(dvd.getDirector());
-            io.print(dvd.getStuido());
+            io.print("Release Date:");
             io.print(dvd.getReleaseDate());
-            io.print(dvd.getGenre());
-            io.print(dvd.getStarring());
+            io.print("Rating:");
             io.print(dvd.getMpaaRating());
+            io.print("Director:");
+            io.print(dvd.getDirector());
+            io.print("User Rating:");
             io.print(dvd.getUserRating());
 
         } else {
@@ -170,19 +171,33 @@ public class DvdView {
     public void displayErrorMessage(String message) {
         io.print("Sorry cant find it):");
     }
-public String getTitleToSearchFor() {
-       String title = io.readString("What title would you like to Search for?");
-        return title;
-}
 
-    public void displayDvd(DVD DVDToLookAt) {
-      String titleToSearch = DVDToLookAt.getTitle();
-        
-        
-   
+    public String getTitleToSearchFor() {
+        String title = io.readString("What title would you like to Search for?");
+        return title;
     }
 
-  
-    
+    public void displayDvd(DVD DVDToLookAt) {
+        String titleToSearch = DVDToLookAt.getTitle();
 
+    }
+
+    public void searchDvd(List<DVD> dvdList) {
+        String userChoice = io.readString("What would you like to search for?");
+        for (DVD currentDvd : dvdList) {
+            String currentTitle = currentDvd.getTitle();
+            if (currentTitle.contains(userChoice)) {
+                io.print("Title:");
+                io.print(currentDvd.getTitle());
+                io.print("Release Date:");
+                io.print(currentDvd.getReleaseDate());
+                io.print("Rating:");
+                io.print(currentDvd.getMpaaRating());
+                io.print("Director:");
+                io.print(currentDvd.getDirector());
+                io.print("User Rating:");
+                io.print(currentDvd.getUserRating());
+            }
+        }
+    }
 }

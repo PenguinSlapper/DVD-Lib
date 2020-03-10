@@ -55,7 +55,7 @@ public class DvdController {
                         viewDVD();
                         break;
                     case 6:
-                        
+                        searchDVD();
                         break;
                     case 7:
                         keepGoing = false;
@@ -96,7 +96,7 @@ public class DvdController {
         String title = view.getDVDChoice();
         DVD dvd = dao.getDVD(title);
         view.displaySearchDVD(dvd);
-        view.displayviewEndDVD();
+        view.displaySearchEndDVD();
     }
 
     private void removeDVD() throws DvdDaoException {
@@ -107,23 +107,14 @@ public class DvdController {
     }
 
     private void updateDVD() throws DvdDaoException {
-
-        List<DVD> dvdList = dao.getAllDVDs();
-        if (dvdList.size() > 0) {
-            view.displayDVDList(dvdList);
-            String title = view.getTitleToSearchFor();
-
-            if (dvdList.contains(title)) {
-                DVD editDvd = view.getNewDVDInfo();
-                dao.removeDVD(title);
-                dao.updateDVD(editDvd.getTitle(), editDvd);
-                view.displayEditSuccessBanner();
-            } else {
-               view.displaynoDVDfound();
-
-            }
-
-        }
+        String title = view.getDVDChoice();
+        DVD dvd = dao.getDVD(title);
+        view.displaySearchesDVD(dvd);
+       dao.removeDVD(title);
+        view.displayEditDVDBanner();
+        DVD updatedDvd = view.getNewDVDInfo();
+        dao.updateDVD(updatedDvd.getTitle(), updatedDvd);
+        view.displayEditSuccessBanner();
     }
 
     private void exitMsg() {
@@ -136,7 +127,8 @@ public class DvdController {
 
     private void searchDVD() throws DvdDaoException {
         view.displaySearchBanner();
-
+        List<DVD> dvdList = dao.getAllDVDs();
+        view.searchDvd(dvdList);
         view.displaySearchEndDVD();
     }
 
